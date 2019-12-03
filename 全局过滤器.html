@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        <p>{{ msg | msgFormat('傻逼')}}</p>
+        <p>{{ date | dateFormat}}</p>
+        输入：<input type="text" id="search" v-focus v-color>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+        //自定义全局按键修饰符
+        Vue.config.keyCodes.f2 = 113
+
+
+        //定义一个Vue全局过滤器，名字为msgFormat
+        Vue.filter('msgFormat', (msg, arg) => {
+            //字符串的replace方法，第一个参数除了可以为字符串，还可以定义正则
+            return msg.replace(/单纯/g, arg)
+        })
+
+        //使用Vue.directive()定义全局组件 v-focus
+        //其中参数1：指令的名称，但不需要加v-
+        //调用时需要加v-
+        //参数2：是一个对象，有一些指令相关操作
+        Vue.directive('focus', {
+            bind(el){//每当指令绑定到元素上的时候,会立即执行bind函数，只执行一次
+                //注意，在每个函数中，第一个参数永远是el,表示被绑定了指令的那个元素
+                el.focus()
+            },
+            inserted(el){//表示元素插入到dom中的时候，会执行inserted函数一次
+                el.focus()
+            },
+            updated(){//当VNode更新的时候，会执行updated，可能会触发多次
+
+            }
+        })
+
+        Vue.directive('color', {
+            //样式只要通过指令绑定给了元素，不管有没有插入页面，这个元素肯定有了内联样式
+            //样式相关的放在bind里面，行为相关的放在inserted里
+            bind(el) {
+                el.style.color = 'red'
+            }
+        })
+
+        Vue.filter('dateFormat', (date) => {
+
+        })
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                msg: '曾经,我也是一个单纯的少年，单纯的我傻傻的问，谁是世界上最单纯的人',
+                date: new Date()
+            },
+            methods: {
+
+            },
+            //私有过滤器
+            filters: {
+
+            }
+
+        })
+    </script>
+</body>
+</html>

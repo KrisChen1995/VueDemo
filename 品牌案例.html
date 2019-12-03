@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+<div id="app">
+
+</div>
+<script src="./js/vue.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            list: [
+                {id: 1, name: '宝马', date: new Date()},
+                {id: 2, name: '奔驰', date: new Date()}
+                ]
+        },
+        methods: {
+            search(){
+                return this.list.filter(item => {
+                    if(item.name.includes(keywords)){
+                        return item
+                    }
+                })
+
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <button @click="lang">浪起来</button>
+    <button @click="stop">停止</button>
+    <h4>{{ msg }}</h4>
+</div>
+<script src="./js/vue.js"></script>
+
+<script>
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            msg: '哈喽你好，我是跑马灯~~~',
+            intervalId: null  //定时器ID
+        },
+        methods: {
+            lang(){
+                //如果定时器ID不为null,返回出去
+                if(this.intervalId != null){
+                    return
+                }
+                this.intervalId = setInterval(() => {
+                    //获取头的字符
+                    const start = this.msg.substring(0,1)
+                    //获取尾部字符
+                    const end = this.msg.substring(1)
+                    return this.msg = end + start
+                }, 400)
+            },
+            stop(){
+                clearInterval(this.intervalId) //清除定时器ID
+                //清除后重新将ID设为空
+                this.intervalId = null
+            }
+        }
+    })
+</script>
+</body>
+</html>
