@@ -8,7 +8,7 @@
     <div id="app">
         <p>{{ msg | msgFormat('傻逼')}}</p>
         <p>{{ date | dateFormat}}</p>
-        输入：<input type="text" id="search" v-focus v-color>
+        输入：<input type="text" id="search" v-focus v-color="'blue'">
     </div>
     <script src="./js/vue.js"></script>
     <script>
@@ -39,17 +39,18 @@
             }
         })
 
-        Vue.directive('color', {
+        Vue.directive('color', (el, binding) => {
             //样式只要通过指令绑定给了元素，不管有没有插入页面，这个元素肯定有了内联样式
             //样式相关的放在bind里面，行为相关的放在inserted里
-            bind(el) {
-                el.style.color = 'red'
-            }
-        })
+            //第二个参数为binding里面有各种属性
+            el.style.color = binding.value
 
-        Vue.filter('dateFormat', (date) => {
+            console.log(binding.expression)
+            console.log(binding.value)
+         }
 
-        })
+
+        )
 
         const vm = new Vue({
             el: '#app',
